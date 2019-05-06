@@ -1,0 +1,14 @@
+// package main
+
+// import "time"
+
+// // Todo has 3 fields: Name represents a thing.
+// type Todo struct {
+// 	ID        int       `json:"id"`
+// 	Name      string    `json:"name"`      // the name of the todo item
+// 	Completed bool      `json:"completed"` // whether it was completed
+// 	Due       time.Time `json:"due"`       // when it is due
+// }
+
+// // Todos is a collection of Todo items
+// type Todos []Todo

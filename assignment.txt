@@ -1,0 +1,15 @@
+Create a MicroService in Golang With
+1. Restful endpoint to post a JSON => {firstname, lastname, address, gender, timestamp}
+2. Restful endpoint to show you a list of {firstname, lastname, address, gender, timestamp} with query to filter for the last 60s, 5mins or 1hr
+   *array must be ordered by timestamp
+
+
+Process
+1. When the POST request is done, the JSON must be pushed to a Message Queue { Use any queue of your choice in a Docker container}
+2. Implement a Consumer to read the Queue and combine the firstname and lastname into fullname and push it to a Redis (Also a Redis Docker)
+3. Query the Redis Queue and return the list of users with query to filter for the last 60s, 5mins or 1hr
+   *array must be ordered by timestamp, The Redis Queue should have a TTL for the dataset inserted of not more than 1hr
+
+
+   Implement this in Golang and Push it to Github for review
+   
