@@ -36,6 +36,9 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    environment:
+     - MW_REDIS=redis:6379
+     - MW_RABBIT=amqp://ruser:rpwd@rabbit/mvrabbit
     command: /go/src/github.com/mhorr/mavencode-assignment/redisclient/redisclient
     depends_on:
       - rabbit

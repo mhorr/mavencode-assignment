@@ -34,7 +34,6 @@ func (r *RabbitQueue) Cleanup() {
 }
 
 func (r *RabbitQueue) setUpChannel() error {
-	log.Printf("called setUpChannel()")
 	var err error
 	r.conn, err = amqp.Dial(GetConfig().Rabbit)
 	if err != nil {

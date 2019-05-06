@@ -19,12 +19,14 @@ func main() {
 	for {
 		var l shared.RabbitListener
 		for initialized := false; !initialized; {
+			log.Println("storeperson.go:main(): calling shared.NewRabbitListener()")
 			nl, err := shared.NewRabbitListener(storePerson)
 			if err != nil {
 				log.Printf("%s: %s", err, "Unable to set up Rabbit listener.")
 				time.Sleep(10 * time.Second)
 				continue
 			}
+			initialized = true
 			l = nl
 		}
 		l.Listen() // won't return.
