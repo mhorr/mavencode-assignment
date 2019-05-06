@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
+	"time"
 
-	//"../shared"
 	"github.com/mhorr/mavencode-assignment/shared"
 )
 
@@ -22,6 +22,7 @@ func main() {
 			nl, err := shared.NewRabbitListener(storePerson)
 			if err != nil {
 				log.Printf("%s: %s", err, "Unable to set up Rabbit listener.")
+				time.Sleep(10 * time.Second)
 				continue
 			}
 			l = nl

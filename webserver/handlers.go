@@ -12,7 +12,7 @@ import (
 	"github.com/mhorr/mavencode-assignment/shared"
 )
 
-const ONE_MB = 1048576
+const oneMegabyte = 1048576
 
 // Index is the handler for '/'
 func Index(w http.ResponseWriter, r *http.Request) {
@@ -23,7 +23,7 @@ func Index(w http.ResponseWriter, r *http.Request) {
 func PersonCreate(w http.ResponseWriter, r *http.Request) {
 	var person shared.Person
 
-	body, err := ioutil.ReadAll(io.LimitReader(r.Body, ONE_MB))
+	body, err := ioutil.ReadAll(io.LimitReader(r.Body, oneMegabyte))
 	handleWebError(err, "Failed to read message body.")
 
 	err = r.Body.Close()
