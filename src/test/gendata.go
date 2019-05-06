@@ -7,6 +7,8 @@ import (
 	"log"
 	"math/rand"
 	"net/http"
+	"os"
+	"strconv"
 	"time"
 
 	"../shared"
@@ -58,7 +60,17 @@ func SendPerson(person []byte) {
 }
 
 func main() {
-	const numtogenerate = 10
+	var numtogenerate int
+	if len(os.Args) > 1 {
+		if parsedNum, err := strconv.Atoi(os.Args[1]); err != nil {
+			log.Printf("Argument %s not converted to int. Defaulting\n", os.Args[1])
+			numtogenerate = 10
+		} else {
+			numtogenerate = parsedNum
+		}
+	} else {
+		numtogenerate = 10
+	}
 	people := MakePeople(numtogenerate)
 	for _, person := range people {
 		pb, _ := json.Marshal(person)

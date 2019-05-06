@@ -48,6 +48,10 @@ func PersonCreate(w http.ResponseWriter, r *http.Request) {
 
 // PersonList lists all person objects in database
 func PersonList(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	personId := vars["fullname"]
+	persons, err := s.QueryPersonByFullName(personId)
+	handleWebError(err, "Failed to query person "+personId)
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	w.WriteHeader(http.StatusOK)
 }

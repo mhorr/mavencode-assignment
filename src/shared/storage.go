@@ -60,8 +60,22 @@ func (s redisInfo) Store(p Person) error {
 
 // Query retrieves person structs from the redis store
 func (s redisInfo) Query(param string) ([]Person, error) {
+	var secondsBack int64
+	// 60s, 5mins or 1hr
+	switch param {
+	case "60sec":
+		secondsBack = 60
+	case "5min":
+		secondsBack = 5 * 60
+	case "1hr":
+		secondsBack = 60 * 60
+	default:
+		secondsBack = 60 * 60
+	}
 	result := []Person{}
-	r, err := redis.Strings(s.conn.Do("ZRANGEBYSCORE", personindex, 0, time.Now().Unix()))
+	to := time.Now().Unix()
+	from := to - secondsBack
+	r, err := redis.Strings(s.conn.Do("ZRANGEBYSCORE", personindex, from, to))
 	if err != nil {
 		return result, err
 	}
@@ -70,17 +84,30 @@ func (s redisInfo) Query(param string) ([]Person, error) {
 		if err != nil {
 			log.Printf("Error on GET for %s: %s\n", "person:"+fullname, err)
 			continue
-			//return result, err
 		}
 		var p Person
 		err = json.Unmarshal(r, &p)
 		if err != nil {
 			log.Printf("Error Unmarshalling person object: %s\n", err)
 			continue
-			//return result, err
 		}
 		result = append(result, p)
 	}
 	log.Printf("result: %s\n", r)
 	return result, nil
+}
+
+func (s redisInfo) QueryPersonByFullName(fullname string) (Person, error) {
+	var p Person
+	r, err := redis.Bytes(s.conn.Do("GET", "person:"+fullname))
+	if err != nil {
+		log.Printf("Error on GET for %s: %s\n", "person:"+fullname, err)
+		return p, err
+	}
+	err = json.Unmarshal(r, &p)
+	if err != nil {
+		log.Printf("Error Unmarshalling person object: %s\n", err)
+		return p, err
+	}
+	return p, err
 }
