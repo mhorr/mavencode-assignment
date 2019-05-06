@@ -15,6 +15,7 @@ const personindex = "person:timeindex"
 type RedisPersonStore interface {
 	Store(p Person) error
 	Query(param string) ([]Person, error)
+	QueryPersonByFullName(fullname string) (Person, error)
 }
 
 type redisInfo struct {
