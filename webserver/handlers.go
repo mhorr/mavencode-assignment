@@ -8,8 +8,8 @@ import (
 	"log"
 	"net/http"
 
-	"../shared"
 	"github.com/gorilla/mux"
+	"github.com/mhorr/mavencode-assignment/shared"
 )
 
 const ONE_MB = 1048576

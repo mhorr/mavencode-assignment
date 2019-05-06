@@ -5,19 +5,29 @@ import (
 	"fmt"
 	"log"
 
-	"../shared"
+	//"../shared"
+	"github.com/mhorr/mavencode-assignment/shared"
 )
 
 func handleError(err error, msg string) {
 	if err != nil {
-		log.Fatalf("%s: %s", err, msg)
+		log.Printf("%s: %s", err, msg)
 	}
 }
 
 func main() {
-	l, err := shared.NewRabbitListener(storePerson)
-	handleError(err, "Unable to set up Rabbit listener.")
-	l.Listen() // won't return.
+	for {
+		var l shared.RabbitListener
+		for initialized := false; !initialized; {
+			nl, err := shared.NewRabbitListener(storePerson)
+			if err != nil {
+				log.Printf("%s: %s", err, "Unable to set up Rabbit listener.")
+				continue
+			}
+			l = nl
+		}
+		l.Listen() // won't return.
+	}
 }
 
 func storePerson(b []byte) {

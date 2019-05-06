@@ -11,8 +11,8 @@ import (
 	"strconv"
 	"time"
 
-	"../shared"
 	"github.com/Pallinder/go-randomdata"
+	"github.com/mhorr/mavencode-assignment/shared"
 )
 
 // FakePerson creates a fake person.

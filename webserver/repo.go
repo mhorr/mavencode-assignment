@@ -1,7 +1,7 @@
 package main
 
 import (
-	"../shared"
+	"github.com/mhorr/mavencode-assignment/shared"
 )
 
 // RepoSendPerson places the person on the queue for storage in Redis
