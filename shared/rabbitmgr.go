@@ -34,14 +34,17 @@ func (r *RabbitQueue) Cleanup() {
 }
 
 func (r *RabbitQueue) setUpChannel() error {
+	log.Printf("called setUpChannel()")
 	var err error
 	r.conn, err = amqp.Dial(GetConfig().Rabbit)
 	if err != nil {
+		log.Printf("%s: %s. Rabbit connection string: %s\n", err, "Failed to dial rabbit", GetConfig().Rabbit)
 		return err
 	}
 
 	r.ch, err = r.conn.Channel()
 	if err != nil {
+		log.Printf("%s: %s\n", err, "Failed to open channel on connection.")
 		return err
 	}
 
@@ -54,6 +57,7 @@ func (r *RabbitQueue) setUpChannel() error {
 		nil,                       // arguments
 	)
 	if err != nil {
+		log.Printf("%s: %s. PersonChannel: %s\n", err, "Failed in QueueDeclare", GetConfig().PersonChannel)
 		return err
 	}
 	return err // will be nil if we get to here
