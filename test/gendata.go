@@ -18,7 +18,19 @@ import (
 // FakePerson creates a fake person.
 func FakePerson() shared.Person {
 	var p shared.Person
-	p.Firstname = randomdata.FirstName(randomdata.RandomGender)
+	g := rand.Intn(2)
+	switch g {
+	case 0:
+		p.Gender = "Male"
+		p.Firstname = randomdata.FirstName(randomdata.Male)
+	case 1:
+		p.Gender = "Female"
+		p.Firstname = randomdata.FirstName(randomdata.Female)
+	default:
+		// shouldn't happen
+		p.Gender = "Unkown"
+		p.Firstname = randomdata.FirstName(randomdata.RandomGender)
+	}
 	p.Lastname = randomdata.LastName()
 	p.Address = randomdata.Address()
 	t := time.Now().Add(time.Duration(-rand.Intn(3600)) * time.Second)
