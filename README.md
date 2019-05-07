@@ -1,5 +1,5 @@
 # Mavencode-assignment
-What is this? It's a coding assignment I did as part of an interview process. It's a simple golang microservice that stores and queries 'person' objects via RabbitMQ and Redis. The full instructions is in this document, [here](#Assignment).
+What is this? It's a coding assignment I did as part of an interview process. It's a simple golang microservice that stores and queries 'person' objects via RabbitMQ and Redis. I've reproduced the assignment in a later section of this document, [here](#Assignment).
 
 # Running the service
 I've packaged the service up using docker-compose. To run it, you need to have docker-compose and golang installed. With those prerequisites, do the following:
